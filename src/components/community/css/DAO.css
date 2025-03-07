@@ -1,0 +1,521 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .back-button {
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .dao-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .da-logo {
+    width: 40px;
+    height: 40px;
+    background-color: #3a9f8a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .dao-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  @media (min-width: 768px) {
+    .dao-controls {
+      width: auto;
+      margin-top: 0;
+    }
+  }
+  
+  .control-button {
+    background-color: transparent;
+    border: none;
+    color: #8a8a96;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .control-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .metadata {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #8a8a96;
+  }
+  
+  .banner {
+    background-color: #d6f2ea25;
+    height: 180px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media (min-width: 768px) {
+    .banner {
+      height: 300px;
+    }
+  }
+  
+  .banner-content {
+    text-align: center;
+  }
+  
+  .logo-big {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #13131a;
+  }
+  
+
+  
+  @media (min-width: 768px) {
+    .chef-hat {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  
+  .logo-big h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  @media (min-width: 768px) {
+    .logo-big h1 {
+      font-size: 3rem;
+    }
+  }
+  
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #2a2a3a;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+  
+  .tab {
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    color: #8a8a96;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+  
+  .tab.active {
+    color: white;
+    border-bottom: 2px solid #3a9f8a;
+  }
+  
+  .search-and-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .search-and-filters {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  .search-container {
+    width: 100%;
+    position: relative;
+  }
+  
+  @media (min-width: 768px) {
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+    }
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8a8a96;
+  }
+  
+  .search-input {
+    border: none;
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    background-color: #2a2b339d;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+  }
+  
+  .filter-buttons {
+    border: none;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  
+  .filter-button {
+    border: none;
+    background-color: #2a2b339d;
+    border-radius: 6px;
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .proposals-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  @media (min-width: 640px) {
+    .proposals-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  .proposal-count {
+    font-weight: 600;
+  }
+  
+  .batch-voting {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .toggle-switch {
+    width: 50px;
+    height: 24px;
+    background-color: #2a2b339d;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  .toggle-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #2a2b339d;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+  }
+  
+  .toggle-circle.active {
+    transform: translateX(26px);
+    background: linear-gradient(45deg, #ffc30d, #b80af7);
+  }
+  
+  .new-proposal-button {
+    background: linear-gradient(45deg, #ffc30d, #b80af7);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+  }
+  
+  @media (max-width: 639px) {
+    .new-proposal-button {
+      margin-left: 0;
+    }
+  }
+  
+  .plus-icon {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .daoproposals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .daoproposal-card {
+    background-color: #2a2b339d;
+    border-radius: 6px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  @media (min-width: 640px) {
+    .daoproposal-card {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+  }
+  
+  .daoproposal-info {
+    flex: 1;
+  }
+  
+  .daoproposal-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    .daoproposal-info h3 {
+      font-size: 18px;
+    }
+  }
+  
+  .daoproposal-status {
+    margin: 0;
+    color: #8a8a96;
+    font-size: 14px;
+  }
+  
+  .daoproposal-status-badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    align-self: flex-start;
+  }
+  
+  @media (min-width: 640px) {
+    .daoproposal-status-badge {
+      align-self: center;
+    }
+  }
+  
+  .completed {
+    background: linear-gradient(45deg, #ffc30d4a, #b80af734);
+    color: #3a9f8a;
+  }
+  
+  .arrow {
+    font-weight: bold;
+  }
+  
+  .sidebar {
+
+    padding: 15px;
+  }
+  
+  @media (min-width: 1024px) {
+    .dashboard-container {
+      flex-direction: row;
+    }
+    
+    .main-content {
+      max-width: 70%;
+      padding: 20px;
+    }
+    
+    .sidebar {
+      width: 30%;
+      padding: 20px;
+    }
+  }
+  
+  .sidebar-section {
+    background-color: #2a2b339d;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .section-header h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .view-button {
+    background-color: transparent;
+    border: none;
+    color: #8a8a96;
+    cursor: pointer;
+  }
+  
+  .no-power {
+    color: #8a8a96;
+    font-size: 14px;
+  }
+  
+  .treasury-balance {
+    background-color: #2a2b339d;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .treasury-balance p {
+    margin: 0 0 5px 0;
+    color: #8a8a96;
+    font-size: 14px;
+  }
+  
+  .treasury-balance h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  @media (min-width: 768px) {
+    .treasury-balance h2 {
+      font-size: 24px;
+    }
+  }
+  
+  .wallet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .wallet-item {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .wallet-logo {
+    width: 32px;
+    height: 32px;
+    background-color: #3a9f8a;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .wallet-logo.usdt {
+    background-color: #26a17b;
+  }
+  
+  .wallet-logo.sol {
+    background-color: #9945FF;
+  }
+  
+  .wallet-info {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .wallet-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .wallet-address {
+    margin: 0 0 2px 0;
+    font-size: 12px;
+    color: #8a8a96;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .wallet-value {
+    margin: 0;
+    font-size: 12px;
+    color: #8a8a96;
+  }
+  
+  /* For link styling */
+  a.link-button {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
+  
+  /* Media query for very small screens */
+  @media (max-width: 350px) {
+    .dao-title h1 {
+      font-size: 20px;
+    }
+    
+    .control-button {
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+    
+    .logo-big h1 {
+      font-size: 2rem;
+    }
+  }

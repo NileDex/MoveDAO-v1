@@ -1,137 +1,178 @@
 /* Main Analytics Page Container */
 .analytics-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
-    color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  padding: 20px;
+}
+
+/* Card for Analytics Content */
+.analytics-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  width: 90%; /* Adjusted for smaller screens */
+  max-width: 1200px; /* Limit width for larger screens */
+
+  text-align: center;
+
+
+  backdrop-filter: blur(10px);
+}
+
+/* Header Style */
+.analytics-card h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #f5f5f5;
+}
+
+/* Paragraph Style */
+.analytics-card p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #bdbdbd;
+  margin-bottom: 25px;
+}
+
+/* Metrics Container */
+.metrics-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+/* Metric Card */
+.metric-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+  max-width: 200px;
+  text-align: center;
+}
+
+.metric-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f5f5f5;
+}
+
+.metric-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6a93d4;
+}
+
+/* Button Styling */
+.analytics-button {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(45deg, #ff5722, #9c27b0);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.analytics-button:hover {
+  background: linear-gradient(45deg, #ff7043, #af52bf);
+  transform: scale(1.05);
+}
+
+.analytics-button:active {
+  transform: scale(0.95);
+}
+
+/* Chart Wrapper */
+.chart-wrapper {
+  width: 100%; /* Full width for responsiveness */
+  max-width: 1200px;
+  margin: 20px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+  .analytics-card {
+    width: 95%; /* Reduce width for tablets */
+    padding: 30px;
+  }
+
+  .analytics-card h1 {
+    font-size: 1.8rem; /* Adjust heading size */
+  }
+
+  .analytics-card p {
+    font-size: 1rem; /* Adjust paragraph size */
+  }
+
+  .chart-wrapper {
+    max-width: 95%; /* Adjust chart wrapper for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-card {
     padding: 20px;
   }
-  
-  /* Card for Analytics Content */
-  .analytics-card {
-    display: flex;
+
+  .analytics-card h1 {
+    font-size: 1.5rem; /* Further reduce heading size */
+  }
+
+  .analytics-card p {
+    font-size: 0.95rem; /* Adjust paragraph size */
+  }
+
+  .analytics-button {
+    font-size: 1rem; /* Adjust button size */
+    padding: 10px 20px;
+  }
+
+  .metrics-container {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 40px;
-    width: 90%; /* Adjusted for smaller screens */
-    max-width: 1200px; /* Limit width for larger screens */
-    border-radius: 16px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
   }
-  
-  /* Header Style */
+
+  .metric-card {
+    max-width: 100%;
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .analytics-card {
+    padding: 15px;
+    border-radius: 10px; /* Smaller border radius for phones */
+  }
+
   .analytics-card h1 {
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-    color: #f5f5f5;
+    font-size: 1.2rem; /* Further reduce heading size */
   }
-  
-  /* Paragraph Style */
+
   .analytics-card p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #bdbdbd;
-    margin-bottom: 25px;
+    font-size: 0.9rem;
   }
-  
-  /* Button Styling */
+
   .analytics-button {
-    padding: 12px 28px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #ffffff;
-    background: linear-gradient(45deg, #ff5722, #9c27b0);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease, transform 0.2s ease;
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
-  
-  .analytics-button:hover {
-    background: linear-gradient(45deg, #ff7043, #af52bf);
-    transform: scale(1.05);
-  }
-  
-  .analytics-button:active {
-    transform: scale(0.95);
-  }
-  
-  /* Chart Wrapper */
+
   .chart-wrapper {
-    width: 100%; /* Full width for responsiveness */
-    max-width: 1200px;
-    margin: 20px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 10px;
+    max-width: 100%; /* Full width for smaller devices */
+    padding: 5px; /* Less padding for smaller screens */
   }
-  
-  /* Media Queries for Responsiveness */
-  @media (max-width: 1024px) {
-    .analytics-card {
-      width: 95%; /* Reduce width for tablets */
-      padding: 30px;
-    }
-  
-    .analytics-card h1 {
-      font-size: 1.8rem; /* Adjust heading size */
-    }
-  
-    .analytics-card p {
-      font-size: 1rem; /* Adjust paragraph size */
-    }
-  
-    .chart-wrapper {
-      max-width: 95%; /* Adjust chart wrapper for tablets */
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .analytics-card {
-      padding: 20px;
-    }
-  
-    .analytics-card h1 {
-      font-size: 1.5rem; /* Further reduce heading size */
-    }
-  
-    .analytics-card p {
-      font-size: 0.95rem; /* Adjust paragraph size */
-    }
-  
-    .analytics-button {
-      font-size: 1rem; /* Adjust button size */
-      padding: 10px 20px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .analytics-card {
-      padding: 15px;
-      border-radius: 10px; /* Smaller border radius for phones */
-    }
-  
-    .analytics-card h1 {
-      font-size: 1.2rem; /* Further reduce heading size */
-    }
-  
-    .analytics-card p {
-      font-size: 0.9rem;
-    }
-  
-    .analytics-button {
-      font-size: 0.9rem;
-      padding: 8px 16px;
-    }
-  
-    .chart-wrapper {
-      max-width: 100%; /* Full width for smaller devices */
-      padding: 5px; /* Less padding for smaller screens */
-    }
-  }
-  
+}

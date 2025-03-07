@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   color: #fff;
-  font-family: 'Roboto', sans-serif;
 }
 
 /* Eligibility Container with Glassmorphism */
@@ -80,7 +79,7 @@
   border-radius: 50px;
   margin: 20px 0;
   height: 8px;
-  overflow: hidden;
+
 }
 
 .progress {

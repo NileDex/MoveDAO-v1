@@ -1,33 +1,417 @@
 .offline-container {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #6c757d; /* Muted gray text */
+  font-family: 'Arial', sans-serif; /* Clean font */
+  padding: 20px; /* Add padding for spacing */
+  box-sizing: border-box;
+}
+
+.offline-container p {
+  margin-top: 10px; /* Space below the icon */
+  font-size: 18px; /* Readable text size */
+  color: #495057; /* Slightly darker text for better readability */
+}
+
+.offline-container svg {
+  margin-bottom: 10px; /* Space below the icon */
+  animation: pulse 1.5s infinite ease-in-out; /* Subtle scaling animation */
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1); /* Default size */
+    opacity: 1; /* Full opacity */
+  }
+  50% {
+    transform: scale(1.1); /* Slightly larger */
+    opacity: 0.8; /* Slightly faded */
+  }
+}
+
+/* proposal.css */
+
+.proposal-wrapper {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  margin: 0 auto; /* Centers horizontally */
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  box-sizing: border-box;
+}
+
+.proposal {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.proposal-header {
+  margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.proposal-header h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.filter-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2a2b33;
+  color: white;
+  font-size: clamp(14px, 2vw, 16px);
+  box-sizing: border-box;
+}
+
+.search-input-wrapper input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
+}
+
+.search-input-wrapper input::placeholder {
+  color: #aaa;
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(45deg, #ffc30d, #b80af7);
+  color: white;
+  padding: 0.75rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.proposal-grid {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.proposal-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row; /* Changed to row for horizontal layout */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f0f0f01a;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  align-items: center; /* Center items vertically */
+  background-color: #2a2b33;
+  box-sizing: border-box;
+  border-radius: 13px;
+}
+
+.proposal-content {
+  padding: 0.5rem;
+  flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.proposal-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.proposal-date {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.vote-count {
+  display: flex;
+  justify-content: flex-start; /* Align to left */
+  gap: 1rem; /* Add gap between yes/no votes */
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.vote-count span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.vote-yes {
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #27ae60;
+}
+
+.vote-no {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.vote-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #11121475;
+  color: white;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  height: 100%;
+  min-width: 130px;
+  align-self: stretch;
+  box-sizing: border-box;
+  border-radius: 12px;
+}
+
+/* Skeleton loading styles */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-title {
+  height: 24px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.skeleton-date {
+  height: 16px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  width: 70%;
+  box-sizing: border-box;
+}
+
+.skeleton-vote {
+  height: 30px;
+  background-color: #e9ecef;
+  border-radius: 6px;
+  width: 120px;
+  box-sizing: border-box;
+}
+
+.skeleton-button {
+  height: auto;
+  min-width: 130px;
+  background-color: #e9ecef;
+  border-left: 1px solid #f0f0f0;
+  box-sizing: border-box;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .proposal-wrapper {
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+  .proposal {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-x: hidden;
+  }
+  
+  .header-content {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .create-button {
+    width: 100%;
     justify-content: center;
-    text-align: center;
-    color: #6c757d; /* Muted gray text */
-    font-family: 'Arial', sans-serif; /* Clean font */
-    padding: 20px; /* Add padding for spacing */
+  }
+  
+  .filter-container {
+    width: 100%;
+  }
+  
+  .search-input-wrapper {
+    width: 100%;
+  }
+  
+  .search-input-wrapper input {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+  
+  .proposal-card {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .vote-button {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #f0f0f01a;
+    border-radius: 0 0 12px 12px;
+    padding: 0.8rem 1rem;
+    min-width: unset;
+  }
+  
+  .vote-count {
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .proposal-header h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Extra small devices (phones) */
+@media (max-width: 480px) {
+  .proposal-wrapper {
+    padding: 0.5rem;
+    overflow-x: hidden;
+  }
+  
+  .proposal {
+    padding: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .proposal-header h3 {
+    font-size: 1.3rem;
+  }
+  
+  .proposal-content {
+    padding: 0.5rem;
+    width: 100%;
+  }
+  
+  .proposal-card h4 {
+    font-size: 1rem;
+  }
+  
+  .proposal-date {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .vote-count {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .vote-count span {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  .vote-button {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  
+  .create-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  
+  .proposal-grid {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Fix for the offline container on small screens */
+@media (max-width: 480px) {
+  .offline-container {
+    padding: 10px;
+    width: 100%;
+    overflow-x: hidden;
   }
   
   .offline-container p {
-    margin-top: 10px; /* Space below the icon */
-    font-size: 18px; /* Readable text size */
-    color: #495057; /* Slightly darker text for better readability */
+    font-size: 16px;
+    width: 100%;
   }
   
   .offline-container svg {
-    margin-bottom: 10px; /* Space below the icon */
-    animation: pulse 1.5s infinite ease-in-out; /* Subtle scaling animation */
+    width: 80%;
+    max-width: 150px;
   }
-  
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1); /* Default size */
-      opacity: 1; /* Full opacity */
-    }
-    50% {
-      transform: scale(1.1); /* Slightly larger */
-      opacity: 0.8; /* Slightly faded */
-    }
-  }
-  
+}

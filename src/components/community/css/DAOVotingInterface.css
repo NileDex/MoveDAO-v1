@@ -1,0 +1,438 @@
+/* DAOVotingInterface.css */
+
+.dao-container {
+    color: #fff;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .dao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+  }
+  
+  .external-link {
+    color: #3dd6c9;
+  }
+  
+  .external-icon {
+    color: #3dd6c9;
+  }
+  
+  .dao-content {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  @media (min-width: 768px) {
+    .dao-content {
+      flex-direction: row;
+    }
+  }
+  
+  .dao-main {
+    flex: 1;
+    padding: 16px;
+  }
+  
+  .dao-sidebar {
+  
+    padding: 16px;
+ 
+  }
+  
+  @media (min-width: 768px) {
+    .dao-sidebar {
+      width: 300px;
+      
+    }
+  }
+  
+  .proposal-header {
+    margin-bottom: 24px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+  }
+  
+  .proposal-meta {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 4px;
+    word-break: break-all;
+  }
+  
+  .proposer-name {
+    font-size: 14px;
+    color: #ddd;
+  }
+  
+  .warning-box {
+    background-color: rgba(255, 204, 0, 0.1);
+    border: 1px solid rgba(255, 204, 0, 0.5);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+  }
+  
+  .warning-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    align-self: flex-start;
+  }
+  
+  .warning-title {
+    color: #ffcc00;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+  }
+  
+  .warning-description {
+    color: #ddd;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #2b2c3a;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
+  
+  h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .chevron {
+    font-size: 12px;
+    transition: transform 0.3s;
+  }
+  
+  .chevron.open {
+    transform: rotate(180deg);
+  }
+  
+  .instructions-content {
+    padding: 16px;
+    background-color: #222330;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+  
+  .discussion-section {
+    margin-bottom: 24px;
+  }
+  
+  .comment-box {
+    display: flex;
+    margin-top: 16px;
+  }
+  
+  textarea {
+    flex: 1;
+    background-color: #2b2c3a;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    font-family: inherit;
+    min-height: 40px;
+    resize: none;
+  }
+  
+  .send-button {
+    background-color: #4b4c60;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .send-button:hover {
+    background-color: #5d5e73;
+  }
+  
+  .vote-card, 
+  .voting-power-card, 
+  .voting-stats-card, 
+  .voting-rules-card {
+    background-color: #2b2c3a;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .vote-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  
+  .vote-yes, 
+  .vote-no {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .vote-yes {
+    background-color: rgba(61, 214, 201, 0.1);
+    color: #3dd6c9;
+    border: 1px solid rgba(61, 214, 201, 0.5);
+  }
+  
+  .vote-yes:hover {
+    background-color: rgba(61, 214, 201, 0.2);
+  }
+  
+  .vote-no {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  .vote-no:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .thumb-icon {
+    margin-right: 8px;
+  }
+  
+  h3 {
+    font-size: 16px;
+    margin: 0 0 16px 0;
+  }
+  
+  .power-details {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 8px;
+    align-items: center;
+  }
+  
+  .power-label {
+    color: #aaa;
+    font-size: 14px;
+  }
+  
+  .power-value {
+    font-size: 24px;
+    font-weight: bold;
+    justify-self: end;
+  }
+  
+  .power-percentage {
+    color: #aaa;
+    font-size: 12px;
+    grid-column: 2;
+  }
+  
+  .stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .refresh-icon {
+    color: #3dd6c9;
+    cursor: pointer;
+  }
+  
+  .timer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .time-icon, 
+  .info-icon {
+    margin: 0 8px;
+    color: #aaa;
+  }
+  
+  .time-value {
+    font-weight: bold;
+  }
+  
+  .quorum-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .progress-bar {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin: 8px 0 16px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #3dd6c9;
+  }
+  
+  .votes-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .yes-votes, 
+  .no-votes {
+    text-align: center;
+  }
+  
+  h4 {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+    color: #aaa;
+  }
+  
+  .votes-count {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .votes-percentage {
+    font-size: 12px;
+    color: #aaa;
+  }
+  
+  .votes-bar {
+    grid-column: 1 / -1;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  
+  .yes-progress {
+    height: 100%;
+    background-color: #3dd6c9;
+  }
+  
+  .explore-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #3dd6c9;
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+  }
+  
+  .rules-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .rules-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  
+  .rule-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .rule-icon {
+    font-size: 18px;
+  }
+  
+  .rule-label {
+    font-size: 12px;
+    color: #aaa;
+  }
+  
+  /* Mobile responsiveness improvements */
+  @media (max-width: 480px) {
+    .vote-buttons {
+      flex-direction: column;
+    }
+    
+    .comment-box {
+      flex-direction: column;
+    }
+    
+    .send-button {
+      margin-left: 0;
+      margin-top: 8px;
+      width: 100%;
+    }
+    
+    .rules-content {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .rule-item {
+      flex: 1 0 40%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dao-content {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .warning-box {
+      order: -2; /* Moves the warning to the top */
+    }
+  
+    .vote-section {
+      order: -1; /* Ensures Yes/No vote section is above discussion */
+    }
+  
+    .discussion-section {
+      order: 2; /* Moves discussion to the bottom */
+      margin-top: 16px;
+    }
+  }
+  

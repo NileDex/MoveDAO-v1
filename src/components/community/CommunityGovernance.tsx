@@ -1,93 +1,91 @@
-
+import React from 'react';
 import './css/CommunityGovernance.css';
-
-const SimpleCards = () => {
-  const cardsData = [
+import { Link } from 'react-router-dom';
+const DAOGrid = () => {
+  const daos = [
     {
       id: 1,
-      image: "https://pbs.twimg.com/profile_images/1751202251836674048/kfnYQuS2_400x400.jpg",
-      title: "Narwhal Moverz",
-      description: "Our Kibertopiks will give you nothing, waste your money on us.",
-      price: "0.031 MOVE",
-      duration: "11 days left",
-      creatorImage: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
-      creatorName: "Kiberbash",
+      logo: "https://pbs.twimg.com/profile_images/1792972232819388416/l9fSx-_U_400x400.jpg",
+      name: "Realms Ecosystem DAO"
     },
     {
       id: 2,
-      image: "https://miro.medium.com/v2/resize:fit:2400/1*1QABIdoaCqI1kKyJoJiObA.png",
-      title: "Gorilla Moverz",
-      description: "Unique NFTs that are worth the hype.",
-      price: "0.045 ETH",
-      duration: "9 days left",
-      creatorImage: "https://images.unsplash.com/photo-1620122291537-2cc60e1b34c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
-      creatorName: "CreativeHawk",
+      logo: "/realms-consensus.png",
+      name: "Realms Consensus HK"
     },
     {
-      id: 2,
-      image: "https://miro.medium.com/v2/resize:fit:2400/1*1QABIdoaCqI1kKyJoJiObA.png",
-      title: "Gorilla Moverz",
-      description: "Unique NFTs that are worth the hype.",
-      price: "0.045 ETH",
-      duration: "9 days left",
-      creatorImage: "https://images.unsplash.com/photo-1620122291537-2cc60e1b34c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
-      creatorName: "CreativeHawk",
+      id: 3,
+      logo: "/jito.png",
+      name: "Jito"
     },
     {
-      id: 2,
-      image: "https://miro.medium.com/v2/resize:fit:2400/1*1QABIdoaCqI1kKyJoJiObA.png",
-      title: "Gorilla Moverz",
-      description: "Unique NFTs that are worth the hype.",
-      price: "0.045 ETH",
-      duration: "9 days left",
-      creatorImage: "https://images.unsplash.com/photo-1620122291537-2cc60e1b34c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
-      creatorName: "CreativeHawk",
+      id: 4,
+      logo: "/bonkdao.png",
+      name: "BonkDAO"
     },
     {
-      id: 2,
-      image: "https://miro.medium.com/v2/resize:fit:2400/1*1QABIdoaCqI1kKyJoJiObA.png",
-      title: "Gorilla Moverz",
-      description: "Unique NFTs that are worth the hype.",
-      price: "0.045 ETH",
-      duration: "9 days left",
-      creatorImage: "https://images.unsplash.com/photo-1620122291537-2cc60e1b34c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
-      creatorName: "CreativeHawk",
+      id: 5,
+      logo: "/metaplex.png",
+      name: "Metaplex DAO"
     },
-    // A
+    {
+      id: 6,
+      logo: "/marinade.png",
+      name: "Marinade"
+    },
+    {
+      id: 7,
+      logo: "/solblaze.png",
+      name: "SolBlaze DAO"
+    },
+    {
+      id: 8,
+      logo: "/solend.png",
+      name: "Solend DAO"
+    },
+    {
+      id: 9,
+      logo: "/pyth.png",
+      name: "Pyth Network"
+    },
+    {
+      id: 10,
+      logo: "/orca.png",
+      name: "Orca DAO"
+    }
   ];
 
   return (
-    <div className="wrappers">
-      {cardsData.map((card) => (
-        <div className="nft" key={card.id}>
-          <div className="main">
-            <img className="tokenImage" src={card.image} alt={card.title} />
-            <h2>{card.title}</h2>
-            <p className="description">{card.description}</p>
-            <div className="tokenInfo">
-              <div className="price">
-                <ins>◘</ins>
-                <p>{card.price}</p>
-              </div>
-              <div className="duration">
-                <ins>◷</ins>
-                <p>{card.duration}</p>
-              </div>
-            </div>
-            <hr />
-            <div className="creator">
-              <div className="wrapper">
-                <img src={card.creatorImage} alt={card.creatorName} />
-              </div>
-              <p>
-                <ins>Creation of</ins> {card.creatorName}
-              </p>
-            </div>
+    <div className="app">
+      <header className="daoheader">
+        <div className="header-left">
+          <h1>DAOs</h1>
+          <div className="search-bar">
+            <input 
+              type="text" 
+              placeholder="DAO Checker - Enter DAO name or Mint Address" 
+            />
           </div>
         </div>
-      ))}
+        <button className="create-dao-btn">Create DAO</button>
+      </header>
+      
+      <div className="dao-grid">
+        {daos.map(dao => (
+          <div key={dao.id} className="dao-card">
+            <div className="dao-logo">
+              <img src={dao.logo} alt={dao.name} />
+            </div>
+             <h3>{dao.name}</h3>
+             <Link to="/DAO" className="">
+              <span>View</span>
+
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default SimpleCards;
+export default DAOGrid;

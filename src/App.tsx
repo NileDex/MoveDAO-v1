@@ -7,12 +7,15 @@ import Header from "./components/Header";
 import Vitals from "./components/Vitals";
 import VoteData from "./components/VoteData";
 import Proposals from "./components/Proposals";
-import FAQ from "./components/FAQ";
 import Vote from "./components/votecomponent/Vote";
 import Profile from "./components/profilecomponent/Profile";
 import Footer from "./components/votecomponent/utils/Footer";
 import AnalyticsPage from "./components/Analytics/analytics";
-import SimpleCards from "./components/community/CommunityGovernance";
+
+import DAOGrid from "./components/community/CommunityGovernance";
+import MarinadeDashboard from "./components/community/DAO";
+import DAOVotingInterface from "./components/community/DAOVotinginterface";
+import CreateProposal from "./components/votecomponent/createvote/CreateProposal";
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
@@ -43,14 +46,18 @@ function App() {
               <Vitals />
               <VoteData />
               <Proposals />
-              <FAQ />
+             
+           
             </div>
           }
         />
         <Route path="/profile" element={<Profile />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
-        <Route path="/CommunityGovernance" element={ <SimpleCards/> } />
+        <Route path="/CommunityGovernance" element={ <DAOGrid/> } />
+        <Route path="/DAO" element={ <MarinadeDashboard/> } />
         <Route path="/vote" element={<Vote />} />
+        <Route path="/CreateProposal" element={ <CreateProposal/> } />
+        <Route path="/DAOVotinginterface" element={<DAOVotingInterface/>  } />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />

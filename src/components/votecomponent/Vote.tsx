@@ -1,48 +1,46 @@
-import { ChangeEvent, useState } from "react";
+import { useState, useEffect } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createEntryPayload } from "@thalalabs/surf";
 import { ABI as StakingABI } from "../../services/Staking.ts";
 import { useAptosWallet } from "@razorlabs/wallet-kit";
 import { useStake } from "../useStake";
-import { MODULE_ADDRESS } from "../../constants.ts";
+import { useVotes } from "../useVotes"; // Assuming you have a hook to fetch votes
+import "./Vote.css"; // Import the CSS file
 
 const Vote = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const { signAndSubmitTransaction, address } = useAptosWallet();
+  const { signAndSubmitTransaction } = useAptosWallet();
   const { data: stake } = useStake();
+  const { data: votes } = useVotes(); // Fetch all proposals
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const proposalId = queryParams.get("id"); // Get the proposal ID from the URL
 
-  if (!stake) return null;
+  const [proposal, setProposal] = useState<{
+    id: string;
+    title: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+  } | null>(null);
 
-  function dateToSeconds(date: Date) {
-    const dateInSeconds = Math.floor(+date / 1000);
-    return dateInSeconds;
-  }
+  // Find the proposal based on the ID
+  useEffect(() => {
+    if (votes && proposalId) {
+      const selectedProposal = votes.find((p) => p.id === proposalId);
+      if (selectedProposal) {
+        setProposal(selectedProposal);
+      }
+    }
+  }, [votes, proposalId]);
 
-  // Only admin can create a vote
-  const createVote = async () => {
-    const payload = createEntryPayload(StakingABI, {
-      function: "create_vote",
-      typeArguments: [],
-      functionArguments: [
-        "Vote Question 1",
-        "Vote Description 1",
-        dateToSeconds(new Date(2024, 1, 1)),
-        dateToSeconds(new Date(2025, 1, 1)),
-      ],
-    });
-
-    await signAndSubmitTransaction({
-      payload,
-    });
-  };
+  if (!stake || !proposal) return null;
 
   const vote = async (yes: boolean) => {
-    const voteId = 1;
     const payload = createEntryPayload(StakingABI, {
       function: "vote",
       typeArguments: [],
-      functionArguments: [voteId, (stake * Math.pow(10, 8)).toString(), yes],
+      functionArguments: [proposal.id, (stake * Math.pow(10, 8)).toString(), yes],
     });
 
     await signAndSubmitTransaction({
@@ -50,16 +48,19 @@ const Vote = () => {
     });
   };
 
-  const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
+  const formatDate = (timestamp: number): string => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   };
 
   return (
-    <div>
+    <div className="vote-container">
       <div className="back">
         <Link to="/main">
-          {" "}
-          {/* Update the link to point to the main dApp page */}
           <span className="backicon">
             <IoChevronBackOutline />
           </span>
@@ -68,40 +69,16 @@ const Vote = () => {
       <div className="votequestion">
         <h4>Proposal / Governance</h4>
         <h1>Vote Question</h1>
-        <h3>Who Should be Move DAO President</h3>
+        <h3>{proposal.title}</h3>
+        <p>{proposal.description}</p>
+        <p>
+          Start: {formatDate(Number(proposal.start_time))} | End:{" "}
+          {formatDate(Number(proposal.end_time))}
+        </p>
       </div>
       <div className="answer-container">
         <div className="voteanswer">
           <form>
-            <section>
-              <label className="custom-radio">
-                <input
-                  type="radio"
-                  value="yes"
-                  checked={selectedOption === "yes"}
-                  onChange={handleOptionChange}
-                />
-                <span className="checkmark"></span>
-                Russhi
-              </label>
-            </section>
-            <section>
-              <label className="custom-radio">
-                <input
-                  type="radio"
-                  value="no"
-                  checked={selectedOption === "no"}
-                  onChange={handleOptionChange}
-                />
-                <span className="checkmark"></span>
-                Coop
-              </label>
-            </section>
-            {address === "0x" + MODULE_ADDRESS && (
-              <button className="votebtn" type="button" onClick={createVote}>
-                Create Vote
-              </button>
-            )}
             <button
               className="votebtn"
               type="button"

@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import favicon from "../../public/images/favicon.png";
-import { IoSettingsOutline } from "react-icons/io5";
-import ThemeToggle from "./ThemeToggle";
 import { AptosConnectButton } from "@razorlabs/wallet-kit";
 import "./css/header.css";
 
 const Header = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   let lastScrollY = 0;
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -55,15 +48,16 @@ const Header = () => {
       </div>
 
       <div className="hamburger" onClick={toggleNav}>
-        <div />
-        <div />
-        <div />
+        <div className={isNavOpen ? "open-top" : ""} />
+        <div className={isNavOpen ? "open-mid" : ""} />
+        <div className={isNavOpen ? "open-bottom" : ""} />
       </div>
 
       <nav className={`nav-items ${isNavOpen ? "show" : ""}`}>
         <Link
           to="/"
           className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+          onClick={() => setIsNavOpen(false)}
         >
           Home
         </Link>
@@ -72,6 +66,7 @@ const Header = () => {
           className={`nav-link ${
             location.pathname === "/profile" ? "active" : ""
           }`}
+          onClick={() => setIsNavOpen(false)}
         >
           Profile
         </Link>
@@ -80,6 +75,7 @@ const Header = () => {
           className={`nav-link ${
             location.pathname === "/analytics" ? "active" : ""
           }`}
+          onClick={() => setIsNavOpen(false)}
         >
           Analytics
         </Link>
@@ -88,26 +84,14 @@ const Header = () => {
           className={`nav-link ${
             location.pathname === "/CommunityGovernance" ? "active" : ""
           }`}
+          onClick={() => setIsNavOpen(false)}
         >
           Community
         </Link>
+        <div className="nav-button-container">
+          <AptosConnectButton className="whit" />
+        </div>
       </nav>
-
-      <div className="headerspecial">
-        <p className="prior">Priority: Fast</p>
-        <section className="dropdown-container">
-          <button onClick={toggleDropdown} className="set">
-            <IoSettingsOutline />
-          </button>
-          {isDropdownOpen && (
-            <div className="dropdown-menu">
-              <a href="#option1">Settings</a>
-              <ThemeToggle />
-            </div>
-          )}
-        </section>
-        <AptosConnectButton className="whit" />
-      </div>
     </div>
   );
 };

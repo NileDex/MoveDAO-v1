@@ -1,4 +1,4 @@
-.hero-background{
+.hero-background {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -8,68 +8,8 @@
   overflow: hidden;
   background: #000000;
 }
-.proposal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 100%;
-  padding: 0 10px; /* Add some padding to ensure it doesn't touch the edges */
-  box-sizing: border-box;
-  margin-bottom: 50px;
-}
-
-.proposal-container {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.proposal-filter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 800px;
-  margin: auto;
-}
-
-.proposal-filter input {
-  background: none;
-  width: 200px;
-  padding: 10px;
-  border: 1.5px solid #ffc30d43;
-  border-radius: 13px;
-  margin: 10px 5px;
-  background: linear-gradient(45deg, #ffc30d, #b80af7);
-  -webkit-background-clip: text;
-  color: transparent;
-  outline: none; /* Removes the default focus outline */
-}
-
-.proposal-filter input:focus {
-  border: 1.5px solid #ffc30d43;
-}
 
 
-.styled-table {
-  background: rgb(30, 30, 30);
-  margin: 0 auto;
-  width: 820px;
-  border-collapse: collapse;
-  font-size: 18px;
-  text-align: left;
-  border-radius: 15px;
-}
-
-.styled-table th,
-.styled-table td {
-  padding: 12px 15px;
-}
-
-.styled-table thead tr {
-  color: #ffc30d;
-  text-align: left;
-}
 
 a {
   text-decoration: none;
@@ -189,124 +129,8 @@ a:focus {
 .footer .copyright {
   margin-top: 20px;
 }
+
 .footerlogo {
   width: 160px;
 }
 
-/* make the footer retract after some seconds then open once hovered on */
-
-.faq {
-  font-family: Arial, sans-serif;
-}
-
-.faq-list {
-  margin-top: 20px;
-}
-
-.faq-item {
-  margin-bottom: 15px;
-}
-
-.faq-question {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-.faq-question h3 {
-  margin: 0;
-}
-
-.faq-question button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.faq-question button:hover {
-  background-color: #0056b3;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-}
-
-.modal-content {
-  background: rgba(41, 41, 41, 0.8);
-  color: #ffc30d;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  border: 1.5px solid #ffc30d;
-}
-.modal-close {
-  background: none;
-  color: white;
-  padding: 5px 20px;
-  border: 1.5px solid #ffc30d;
-  border-radius: 15px;
-}
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.close-btn {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-}
-
-.close-btn:hover {
-  background-color: #0056b3;
-}
-
-@media screen and (max-width: 600px) {
-  .proposal-container {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid #ffc30d;
-    border-radius: 15px;
-  }
-  .styled-table {
-    width: 100%;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  .styled-table th,
-  .styled-table td {
-    padding: 8px 10px;
-  }
-  .proposal-filter{
-    width:  100%;
-  }
-  .proposal-filter input {
-    width: 280px;
-  }
-  .proposal-filter h3 {
-    display: none;
-  }
-}
