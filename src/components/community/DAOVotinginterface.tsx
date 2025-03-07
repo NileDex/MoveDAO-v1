@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './css/DAOVotingInterface.css';
 
-const DAOVotingInterface = () => {
+interface DAOVotingInterfaceProps {
+  // You can add props here if needed
+}
+
+const DAOVotingInterface: React.FC<DAOVotingInterfaceProps> = () => {
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
   const [comment, setComment] = useState('');
 
