@@ -1,6 +1,6 @@
 # MoveDao
 
-Deployed version: https://vote-dao-roan.vercel.app/
+Deployed version: https://vote-dao-git-main-joseph-sundays-projects.vercel.app/
 
 # Scripts
 
