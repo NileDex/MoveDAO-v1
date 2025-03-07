@@ -1,6 +1,6 @@
-import React from 'react';
 import './css/CommunityGovernance.css';
 import { Link } from 'react-router-dom';
+
 const DAOGrid = () => {
   const daos = [
     {
@@ -79,7 +79,6 @@ const DAOGrid = () => {
              <h3>{dao.name}</h3>
              <Link to="/DAO" className="">
               <span>View</span>
-
             </Link>
           </div>
         ))}

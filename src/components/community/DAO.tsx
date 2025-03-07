@@ -1,36 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useStake } from "../useStake";
 import { Link } from 'react-router-dom';
 import "./css/DAO.css";
 
 const MarinadeDashboard = () => {
-
   const [batchVoting, setBatchVoting] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Check if screen is mobile size
-    
-
-     const { data: stake } = useStake();
- 
-
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
-    // Set initial value
-    handleResize();
-
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Clean up
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const { data: stake } = useStake();
 
   return (
     <div className="dashboard-container">
@@ -129,9 +105,8 @@ const MarinadeDashboard = () => {
             >
               <span>Completed</span>
                <Link to="/DAOVotinginterface" className="">
-                            <span>View</span>
-              
-                          </Link>
+                <span>View</span>
+              </Link>
             </a>
           </div>
 
@@ -208,4 +183,3 @@ const MarinadeDashboard = () => {
 };
 
 export default MarinadeDashboard;
-
