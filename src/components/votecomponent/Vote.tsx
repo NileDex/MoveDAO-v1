@@ -6,7 +6,7 @@ import { ABI as StakingABI } from "../../services/Staking.ts";
 import { useAptosWallet } from "@razorlabs/wallet-kit";
 import { useStake } from "../useStake";
 import { useVotes } from "../useVotes"; // Assuming you have a hook to fetch votes
-import "./Vote.css"; // Import the CSS file
+import "./vote.css"; // Import the CSS file
 
 const Vote = () => {
   const { signAndSubmitTransaction } = useAptosWallet();
