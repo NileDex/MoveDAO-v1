@@ -7,7 +7,6 @@ interface DAOVotingInterfaceProps {
 
 const DAOVotingInterface: React.FC<DAOVotingInterfaceProps> = () => {
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
-  const [comment, setComment] = useState('');
 
   return (
     <div className="dao-container">
@@ -58,18 +57,6 @@ const DAOVotingInterface: React.FC<DAOVotingInterfaceProps> = () => {
               </div>
             )}
           </div>
-
-          <div className="discussion-section">
-            <h2>Discussion (0)</h2>
-            <div className="comment-box">
-              <textarea 
-                placeholder="Thoughts?..." 
-                value={comment} 
-                onChange={(e) => setComment(e.target.value)} 
-              />
-              <button className="send-button">Send It</button>
-            </div>
-          </div>
         </div>
 
         <div className="dao-sidebar">
@@ -97,7 +84,7 @@ const DAOVotingInterface: React.FC<DAOVotingInterfaceProps> = () => {
           <div className="voting-stats-card">
             <div className="stats-header">
               <h3>Voting Now</h3>
-              <span className="refresh-icon">↻</span>
+              <span className="refresh-icon">⟳</span>
             </div>
             <div className="timer">
               <span className="time-icon">⏱</span>
