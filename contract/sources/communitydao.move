@@ -1,9 +1,9 @@
-module Dao {
+module my_addrx::Dao {
     use std::signer;
     use std::vector;
 
     /// Resource struct representing a DAO
-    resource struct DAO {
+    struct DAO has key {
         owner: address,
         name: vector<u8>,
         logo: vector<u8>,
@@ -12,7 +12,7 @@ module Dao {
     }
 
     /// Struct representing a proposal
-    struct Proposal {
+    struct Proposal has store {
         id: u64,
         description: vector<u8>,
     }
@@ -30,7 +30,7 @@ module Dao {
     }
 
     /// Function to create a proposal (only the DAO owner can do this)
-    public fun create_proposal(creator: &signer, description: vector<u8>) {
+    public fun create_proposal(creator: &signer, description: vector<u8>) acquires DAO {
         let creator_address = signer::address_of(creator);
         let dao = borrow_global_mut<DAO>(creator_address);
 
@@ -44,21 +44,21 @@ module Dao {
     }
 
     /// Function to manage a proposal (only council members can do this)
-    public fun manage_proposal(dao_owner: address, proposal_id: u64, manager: &signer) {
+    public fun manage_proposal(dao_owner: address, proposal_id: u64, manager: &signer) acquires DAO {
         let dao = borrow_global_mut<DAO>(dao_owner);
         let manager_address = signer::address_of(manager);
 
-        let mut is_council = false;
+        let is_council = false;
         let council_len = vector::length(&dao.council);
-        let mut i = 0;
+        let i = 0;
 
         while (i < council_len) {
             if (vector::borrow(&dao.council, i) == &manager_address) {
                 is_council = true;
                 break;
-            }
+            };
             i = i + 1;
-        }
+        };
 
         assert!(is_council, 0); // Only council members can manage proposals
 
