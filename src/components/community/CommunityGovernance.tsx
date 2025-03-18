@@ -6,37 +6,37 @@ const DAOGrid = () => {
     {
       id: 1,
       logo: "https://pbs.twimg.com/profile_images/1792972232819388416/l9fSx-_U_400x400.jpg",
-      name: "Realms Ecosystem DAO"
+      name: "Gorrila Moverz"
     },
     {
       id: 2,
       logo: "/realms-consensus.png",
-      name: "Realms Consensus HK"
+      name: "Nuttered"
     },
     {
       id: 3,
       logo: "/jito.png",
-      name: "Jito"
+      name: "Movetopia"
     },
     {
       id: 4,
       logo: "/bonkdao.png",
-      name: "BonkDAO"
+      name: "Movementlabs"
     },
     {
       id: 5,
       logo: "/metaplex.png",
-      name: "Metaplex DAO"
+      name: "Movedrome"
     },
     {
       id: 6,
       logo: "/marinade.png",
-      name: "Marinade"
+      name: "ZebraFinance"
     },
     {
       id: 7,
       logo: "/solblaze.png",
-      name: "SolBlaze DAO"
+      name: "Curvance"
     },
     {
       id: 8,
