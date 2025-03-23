@@ -11,46 +11,55 @@ const DAOGrid = () => {
     {
       id: 2,
       logo: "/realms-consensus.png",
+      backdrop: "/bonkdao.png",
       name: "Nuttered"
     },
     {
       id: 3,
       logo: "/jito.png",
+      backdrop: "/bonkdao.png",
       name: "Movetopia"
     },
     {
       id: 4,
       logo: "/bonkdao.png",
+      backdrop: "/bonkdao.png",
       name: "Movementlabs"
     },
     {
       id: 5,
       logo: "/metaplex.png",
+      backdrop: "/bonkdao.png",
       name: "Movedrome"
     },
     {
       id: 6,
       logo: "/marinade.png",
+      backdrop: "/bonkdao.png",
       name: "ZebraFinance"
     },
     {
       id: 7,
       logo: "/solblaze.png",
+      backdrop: "/bonkdao.png",
       name: "Curvance"
     },
     {
       id: 8,
       logo: "/solend.png",
+      backdrop: "/bonkdao.png",
       name: "Solend DAO"
     },
     {
       id: 9,
       logo: "/pyth.png",
+      backdrop: "/bonkdao.png",
       name: "Pyth Network"
     },
     {
       id: 10,
       logo: "/orca.png",
+      backdrop: "/bonkdao.png",
       name: "Orca DAO"
     }
   ];
@@ -88,3 +97,4 @@ const DAOGrid = () => {
 };
 
 export default DAOGrid;
+
