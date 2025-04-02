@@ -16,6 +16,7 @@ import DAOGrid from "./components/community/CommunityGovernance";
 import MarinadeDashboard from "./components/community/DAO";
 import DAOVotingInterface from "./components/community/DAOVotinginterface";
 import CreateProposal from "./components/votecomponent/createvote/CreateProposal";
+import CreateDao from "./components/community/createdaoform/CreateDaoForm";
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
@@ -57,6 +58,7 @@ function App() {
         <Route path="/DAO" element={ <MarinadeDashboard/> } />
         <Route path="/vote" element={<Vote />} />
         <Route path="/CreateProposal" element={ <CreateProposal/> } />
+        <Route path="/CreateDao" element={ <CreateDao/> } />
         <Route path="/DAOVotinginterface" element={<DAOVotingInterface/>  } />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

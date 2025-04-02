@@ -3,7 +3,7 @@ import { useStake } from "../useStake";
 import { Link } from 'react-router-dom';
 import "./css/DAO.css";
 
-const MarinadeDashboard = () => {
+const DaoDashboard = () => {
   const [batchVoting, setBatchVoting] = useState(false);
 
   const { data: stake } = useStake();
@@ -19,13 +19,13 @@ const MarinadeDashboard = () => {
           </div>
           <div className="dao-title">
             <div className="dao-logo">
-              <img src="/api/placeholder/40/40" alt="Marinade logo" />
+              <img src="/api/placeholder/40/40" alt=" logo" />
             </div>
             <h1>Marinade</h1>
           </div>
           <div className="dao-controls">
             <a href="./stats" className="control-button link-button">
-              <span>MNDE stats</span>
+              <span>stats</span>
             </a>
             <a href="./members" className="control-button link-button">
               <span>Members</span>
@@ -34,7 +34,7 @@ const MarinadeDashboard = () => {
               <span>Params</span>
             </a>
             <a
-              href="https://marinade.finance"
+              href="https://dao.finance"
               target="_blank"
               rel="noopener noreferrer"
               className="control-button link-button"
@@ -54,7 +54,7 @@ const MarinadeDashboard = () => {
           <div className="banner-content">
             <div className="logo-big">
               <div className="chef-hat"></div>
-              <h1>Marinade</h1>
+              <h1>Moverz</h1>
             </div>
           </div>
         </div>
@@ -182,4 +182,4 @@ const MarinadeDashboard = () => {
   );
 };
 
-export default MarinadeDashboard;
+export default DaoDashboard;
