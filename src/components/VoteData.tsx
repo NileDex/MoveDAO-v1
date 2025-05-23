@@ -7,14 +7,14 @@ import { useStake } from "./useStake";
 import { useRef, useState } from "react";
 import { createEntryPayload } from "@thalalabs/surf";
 import { ABI as StakingABI } from "../services/Staking.ts";
-import Modal from "./Modal"; // Import the enhanced Modal component
+import Modal from "./Modal";
 
 const Votedata = () => {
   const { data: stake, refetch: refetchStake } = useStake();
   const { account, signAndSubmitTransaction } = useAptosWallet();
   const amountRef = useRef<HTMLInputElement>(null);
 
-  // State for controlling modal visibility and message
+  // State for controlling modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState<"info" | "success" | "error">("info");
@@ -22,8 +22,13 @@ const Votedata = () => {
   const [modalStep, setModalStep] = useState<"details" | "confirm" | "loading">("confirm");
   const [transactionUrl, setTransactionUrl] = useState("");
 
-  // Function to open modal with a specific message and type
-  const openModal = (message: string, type: "info" | "success" | "error" = "info", title = "Transaction Submitted", step: "details" | "confirm" | "loading" = "confirm", txUrl = "") => {
+  const openModal = (
+    message: string,
+    type: "info" | "success" | "error" = "info",
+    title = "Transaction Submitted",
+    step: "details" | "confirm" | "loading" = "confirm",
+    txUrl = ""
+  ) => {
     setModalMessage(message);
     setModalType(type);
     setModalTitle(title);
@@ -32,110 +37,107 @@ const Votedata = () => {
     setIsModalOpen(true);
   };
 
-  // Function to close modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  async function stakeMove() {
+  async function handleTransaction(
+    action: "stake" | "unstake",
+    successMessage: string
+  ) {
     try {
       const amount = parseFloat(amountRef.current?.value || "0");
       
+      // Validate amount
       if (isNaN(amount) || amount <= 0) {
         openModal("Please enter a valid amount greater than 0", "error", "Invalid Amount", "details");
         return;
       }
 
+      // Additional validation for unstake
+      if (action === "unstake") {
+        const currentStake = typeof stake === 'number' ? stake : 0;
+        if (amount > currentStake) {
+          openModal("Cannot unstake more than your staked amount", "error", "Invalid Amount", "details");
+          return;
+        }
+      }
+
+      // Convert to atomic units (8 decimals)
+      const amountInAtomicUnits = Math.floor(amount * Math.pow(10, 8)).toString();
+      console.log(`${action} amount (atomic units):`, amountInAtomicUnits);
+
+      // Create transaction payload
       const payload = createEntryPayload(StakingABI, {
-        function: "stake",
+        function: action,
         typeArguments: [],
-        functionArguments: [Math.floor(amount * Math.pow(10, 8)).toString()], // Fixed the BigInt issue here
+        functionArguments: [amountInAtomicUnits],
       });
+
+      console.log("Transaction payload:", payload);
 
       openModal("Please confirm this transaction in your wallet...", "info", "Transaction In Progress", "loading");
       
-      const response = await signAndSubmitTransaction({
-        payload,
-      });
-      
-      // Fixed: Safely access the hash property by checking response type
-      let txUrl = "";
-      if (response && 'hash' in response && response.hash) {
-        txUrl = `https://explorer.aptoslabs.com/txn/${response.hash}`;
-      }
-      
-      openModal(`${amount} MOVE tokens successfully staked as collateral`, "success", "Transaction Submitted", "confirm", txUrl);
+      // Submit transaction
+      const response = await signAndSubmitTransaction({ payload });
+      console.log("Transaction response:", response);
 
+      if (!response || 'error' in response) {
+        throw new Error("Transaction failed - no hash returned");
+      }
+
+      const txUrl = `https://explorer.aptoslabs.com/txn/${(response as unknown as { hash: string }).hash}`;
+      console.log("Transaction URL:", txUrl);
+      
+      openModal(
+        successMessage.replace("{amount}", amount.toString()),
+        "success",
+        "Transaction Submitted",
+        "confirm",
+        txUrl
+      );
+
+      // Wait for chain to update then refetch
       setTimeout(() => {
         refetchStake();
-      }, 2000);
+      }, 5000); // Increased delay for chain propagation
+
     } catch (error: any) {
+      console.error(`${action} error:`, error);
+      
+      let errorMessage = `${action} failed: ${error.message || "Unknown error"}`;
+      let errorType: "error" = "error";
+      
       if (error.message?.includes("rejected")) {
-        openModal("Transaction was rejected by user", "error", "Transaction Failed", "details");
-      } else if (error.message?.includes("insufficient balance")) {
-        openModal("Insufficient balance to complete transaction", "error", "Transaction Failed", "details");
+        errorMessage = "Transaction was rejected by user";
+      } else if (error.message?.includes("insufficient")) {
+        errorMessage = action === "stake" 
+          ? "Insufficient balance to complete transaction" 
+          : "You don't have enough staked tokens";
       } else if (error.message?.includes("timeout")) {
-        openModal("Transaction timed out. Please try again", "error", "Transaction Failed", "details");
+        errorMessage = "Transaction timed out. Please try again";
+      } else if (error.message?.includes("network")) {
+        errorMessage = "Network error. Please check your connection";
       } else if (error.message?.includes("BigInt")) {
-        openModal("Invalid amount format. Please enter a valid number", "error", "Transaction Failed", "details");
-      } else {
-        openModal(`Transaction failed: ${error.message || "Unknown error"}`, "error", "Transaction Failed", "details");
+        errorMessage = "Invalid amount format. Please enter a valid number";
       }
+
+      openModal(errorMessage, errorType, "Transaction Failed", "details");
     }
   }
 
+  async function stakeMove() {
+    await handleTransaction(
+      "stake",
+      "{amount} MOVE tokens successfully staked as collateral"
+    );
+  }
+
   async function unstakeMove() {
-    try {
-      const amount = parseFloat(amountRef.current?.value || "0");
-      
-      if (isNaN(amount) || amount <= 0) {
-        openModal("Please enter a valid amount greater than 0", "error", "Invalid Amount", "details");
-        return;
-      }
-      
-      // Fixed: Compare with the numeric stake value properly
-      const currentStake = typeof stake === 'number' ? stake : 0;
-      if (amount > currentStake) {
-        openModal("Cannot unstake more than your staked amount", "error", "Invalid Amount", "details");
-        return;
-      }
-
-      openModal("Please confirm this transaction in your wallet...", "info", "Transaction In Progress", "loading");
-      
-      const response = await signAndSubmitTransaction({
-        payload: createEntryPayload(StakingABI, {
-          function: `unstake`,
-          typeArguments: [],
-          functionArguments: [Math.floor(amount * Math.pow(10, 8)).toString()], // Fixed the BigInt issue here
-        }),
-      });
-      
-      // Fixed: Safely access the hash property by checking response type
-      let txUrl = "";
-      if (response && 'hash' in response && response.hash) {
-        txUrl = `https://explorer.aptoslabs.com/txn/${response.hash}`;
-      }
-      
-      openModal(`${amount} MOVE tokens successfully unstaked`, "success", "Transaction Submitted", "confirm", txUrl);
-
-      setTimeout(() => {
-        refetchStake();
-      }, 2000);
-    } catch (error: any) {
-      if (error.message?.includes("rejected")) {
-        openModal("Transaction was rejected by user", "error", "Transaction Failed", "details");
-      } else if (error.message?.includes("insufficient")) {
-        openModal("You don't have enough staked tokens to unstake this amount", "error", "Transaction Failed", "details");
-      } else if (error.message?.includes("timeout")) {
-        openModal("Transaction timed out. Please try again", "error", "Transaction Failed", "details");
-      } else if (error.message?.includes("network")) {
-        openModal("Network error. Please check your connection and try again", "error", "Transaction Failed", "details");
-      } else if (error.message?.includes("BigInt")) {
-        openModal("Invalid amount format. Please enter a valid number", "error", "Transaction Failed", "details");
-      } else {
-        openModal(`Unstaking failed: ${error.message || "Unknown error"}`, "error", "Transaction Failed", "details");
-      }
-    }
+    await handleTransaction(
+      "unstake",
+      "{amount} MOVE tokens successfully unstaked"
+    );
   }
 
   return (
@@ -167,61 +169,45 @@ const Votedata = () => {
           <h3>
             Connect your wallet below to lock MOVE and vote on Proposals & LFG!
           </h3>
-          <input className="inputfield" placeholder="MOVE" ref={amountRef} />
-          {!account?.address && (
+          <input 
+            className="inputfield" 
+            placeholder="MOVE" 
+            ref={amountRef}
+            type="number"
+            min="0"
+            step="0.00000001"
+          />
+          
+          {!account?.address ? (
             <AptosConnectButton
               className="whit"
               style={{
                 margin: "0",
-                width: "100%", // Makes the button take full width of its container
-                maxWidth: "400px", // Limits the maximum width to 400px
-                padding: "10px 5px", // Adjusted padding for responsiveness
+                width: "100%",
+                maxWidth: "400px",
+                padding: "10px 5px",
                 background: 'linear-gradient(45deg, #ffc30d, #b80af7)',
                 borderRadius: "13px",
-                fontSize: "15px", // Base font size
+                fontSize: "15px",
                 fontWeight: "bold",
-                boxSizing: "border-box", // Ensures padding and border are included in the total width and height
+                boxSizing: "border-box",
                 border: 'none',
               }}
             />
-          )}
-          {account?.address && (
+          ) : (
             <>
               <button
                 type="button"
-                style={{
-                  margin: "0",
-                  width: "100%", // Makes the button take full width of its container
-                  maxWidth: "400px", // Limits the maximum width to 400px
-                  padding: "10px 5px", // Adjusted padding for responsiveness
-                  background: 'linear-gradient(45deg, #ffc30d, #b80af7)',
-                  borderRadius: "13px",
-                  fontSize: "15px", // Base font size
-                  fontWeight: "bold",
-                  boxSizing: "border-box", // Ensures padding and border are included in the total width and height
-                  border: 'none',
-                  color: 'white',
-                }}
+                className="action-button"
                 onClick={stakeMove}
               >
                 Stake
               </button>
               <button
                 type="button"
-                style={{
-                  margin: "15px 0",
-                  width: "100%", // Makes the button take full width of its container
-                  maxWidth: "400px", // Limits the maximum width to 400px
-                  padding: "10px 5px", // Adjusted padding for responsiveness
-                  background: 'linear-gradient(45deg, #ffc30d, #b80af7)',
-                  borderRadius: "13px",
-                  fontSize: "15px", // Base font size
-                  fontWeight: "bold",
-                  boxSizing: "border-box", // Ensures padding and border are included in the total width and height
-                  border: 'none',
-                  color: 'white',
-                }}
+                className="action-button"
                 onClick={unstakeMove}
+                style={{ marginTop: "15px" }}
               >
                 Unstake
               </button>
@@ -230,7 +216,6 @@ const Votedata = () => {
         </div>
       </div>
 
-      {/* Modal component moved outside the vdata-container to prevent it from following the container when scrolling */}
       <Modal 
         isOpen={isModalOpen} 
         onClose={closeModal} 
@@ -242,6 +227,45 @@ const Votedata = () => {
       >
         {modalMessage}
       </Modal>
+
+      <style>
+        {`
+          .action-button {
+            margin: 0;
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 5px;
+            background: linear-gradient(45deg, #ffc30d, #b80af7);
+            border-radius: 13px;
+            font-size: 15px;
+            font-weight: bold;
+            box-sizing: border-box;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.2s;
+          }
+          
+          .action-button:hover {
+            opacity: 0.9;
+          }
+          
+          .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+          
+          .inputfield {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            font-size: 16px;
+          }
+        `}
+      </style>
     </>
   );
 };

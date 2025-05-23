@@ -99,6 +99,3 @@ const CreateDao = () => {
 };
 
 export default CreateDao;
-
-
-

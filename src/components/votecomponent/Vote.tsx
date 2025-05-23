@@ -37,15 +37,26 @@ const Vote = () => {
   if (!stake || !proposal) return null;
 
   const vote = async (yes: boolean) => {
-    const payload = createEntryPayload(StakingABI, {
-      function: "vote",
-      typeArguments: [],
-      functionArguments: [proposal.id, (stake * Math.pow(10, 8)).toString(), yes],
-    });
+    try {
+      const payload = createEntryPayload(StakingABI, {
+        function: "vote",
+        typeArguments: [],
+        functionArguments: [
+          BigInt(proposal.id),
+          BigInt(stake),
+          yes
+        ],
+      });
 
-    await signAndSubmitTransaction({
-      payload,
-    });
+      const response = await signAndSubmitTransaction({
+        payload
+      });
+      
+      console.log("Transaction submitted:", response);
+    } catch (error) {
+      console.error("Error voting:", error);
+      // You might want to show an error message to the user here
+    }
   };
 
   const formatDate = (timestamp: number): string => {

@@ -12,11 +12,18 @@ const queryClient = new QueryClient({});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AptosWalletProvider autoConnect={true}>
+    <AptosWalletProvider 
+      autoConnect={true}
+      chains={[
+        {
+          name: "Movement Testnet",
+          id: "1",
+          rpcUrl: "/aptos-bardock"
+        }
+      ]}
+    >
       <QueryClientProvider client={queryClient}>
-
-          <App />
-
+        <App />
       </QueryClientProvider>
     </AptosWalletProvider>
   </StrictMode>

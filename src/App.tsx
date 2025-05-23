@@ -11,12 +11,11 @@ import Vote from "./components/votecomponent/Vote";
 import Profile from "./components/profilecomponent/Profile";
 import Footer from "./components/votecomponent/utils/Footer";
 import AnalyticsPage from "./components/Analytics/analytics";
-
 import DAOGrid from "./components/community/CommunityGovernance";
-import MarinadeDashboard from "./components/community/DAO";
+
 import DAOVotingInterface from "./components/community/DAOVotinginterface";
 import CreateProposal from "./components/votecomponent/createvote/CreateProposal";
-import CreateDao from "./components/community/createdaoform/CreateDaoForm";
+import CreateDaoForm from "./components/community/createdaoform/CreateDaoForm";
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
@@ -40,26 +39,21 @@ function App() {
       </div>
       <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="App">
-              <Vitals />
-              <VoteData />
-              <Proposals />
-             
-           
-            </div>
-          }
-        />
+        <Route path="/" element={
+          <div className="App">
+            <Vitals />
+            <VoteData />
+            <Proposals />
+          </div>
+        } />
         <Route path="/profile" element={<Profile />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
-        <Route path="/CommunityGovernance" element={ <DAOGrid/> } />
-        <Route path="/DAO" element={ <MarinadeDashboard/> } />
+        <Route path="/CommunityGovernance" element={<DAOGrid />} />
+        {/* <Route path="/DAO" element={ <Dashboard/> } /> */}
         <Route path="/vote" element={<Vote />} />
-        <Route path="/CreateProposal" element={ <CreateProposal/> } />
-        <Route path="/CreateDao" element={ <CreateDao/> } />
-        <Route path="/DAOVotinginterface" element={<DAOVotingInterface/>  } />
+        <Route path="/CreateProposal" element={<CreateProposal />} />
+        <Route path="/CreateDao" element={<CreateDaoForm />} />
+        <Route path="/DAOVotinginterface" element={<DAOVotingInterface />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />

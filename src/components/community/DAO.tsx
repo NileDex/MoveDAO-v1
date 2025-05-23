@@ -3,7 +3,7 @@ import { useStake } from "../useStake";
 import { Link } from 'react-router-dom';
 import "./css/DAO.css";
 
-const DaoDashboard = () => {
+const Dashboard = () => {
   const [batchVoting, setBatchVoting] = useState(false);
 
   const { data: stake } = useStake();
@@ -182,4 +182,4 @@ const DaoDashboard = () => {
   );
 };
 
-export default DaoDashboard;
+export default Dashboard;

@@ -1,6 +1,3 @@
-
-
-
 export const DaoABI = {
   address: "0x160c30b861d6e3ac4864903423e6523a2ed873ae1b41132382f699b07ac684ec",
   name: "Dao",
@@ -27,7 +24,7 @@ export const DaoABI = {
     {
       name: "create_dao",
       visibility: "public",
-      is_entry: false,
+      is_entry: true,
       is_view: false,
       generic_type_params: [],
       params: [
