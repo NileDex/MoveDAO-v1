@@ -17,7 +17,8 @@
         "ignore": [
           "backdrop-filter",
           "user-select",
-          "scrollbar-width"
+          "scrollbar-width",
+          "-moz-appearance"
         ]
       }
     ],

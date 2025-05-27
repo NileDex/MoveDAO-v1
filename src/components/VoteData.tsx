@@ -10,7 +10,7 @@ import { ABI as StakingABI } from "../services/Staking.ts";
 import Modal from "./Modal";
 import movementtoken from './images/movementtoken.png';
 
-// Custom hook for count-up animation
+// Custom hook for smooth count-up animation of numeric values
 const useCountUp = (target: number, duration = 1000) => {
   const [count, setCount] = useState(0);
 
@@ -41,35 +41,42 @@ const useCountUp = (target: number, duration = 1000) => {
   return count;
 };
 
+// Main component for staking/unstaking MOVE tokens
 const Votedata = () => {
+  // Hook for getting stake data and refetch function
   const { data: stake, refetch: refetchStake } = useStake();
+  // Wallet connection hooks
   const { account, signAndSubmitTransaction } = useAptosWallet();
+  // Refs and state for input handling
   const amountRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // State for controlling modal
+  // Modal control state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState<"info" | "success" | "error">("info");
   const [modalTitle, setModalTitle] = useState("Transaction Submitted");
   const [modalStep, setModalStep] = useState<"details" | "confirm" | "loading">("confirm");
   const [transactionUrl, setTransactionUrl] = useState("");
+  // Tracks pending staking/unstaking action
   const [pendingAction, setPendingAction] = useState<{
     type: "stake" | "unstake";
     amount: number;
   } | null>(null);
 
-  // Use the count-up animation for stake display
+  // Animated display of stake value
   const animatedStake = useCountUp(typeof stake === 'number' ? stake : 0);
 
+  // Handles input changes with validation for numeric values
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (/^\d*\.?\d*$/.test(value)) {
+    if (/^\d*\.?\d*$/.test(value)) { // Only allow numbers and decimal points
       setInputValue(value);
     }
   };
 
+  // Helper function to open modal with various configurations
   const openModal = (
     message: string,
     type: "info" | "success" | "error" = "info",
@@ -85,20 +92,24 @@ const Votedata = () => {
     setIsModalOpen(true);
   };
 
+  // Closes modal and resets pending action
   const closeModal = () => {
     setIsModalOpen(false);
     setPendingAction(null);
   };
 
+  // Handles the actual transaction confirmation and submission
   const handleConfirmTransaction = async () => {
     if (!pendingAction) return;
 
     try {
       const { type: action, amount } = pendingAction;
 
+      // Convert to atomic units (8 decimal places)
       const amountInAtomicUnits = Math.floor(amount * Math.pow(10, 8)).toString();
       console.log(`${action} amount (atomic units):`, amountInAtomicUnits);
 
+      // Create transaction payload
       const payload = createEntryPayload(StakingABI, {
         function: action,
         typeArguments: [],
@@ -107,8 +118,10 @@ const Votedata = () => {
 
       console.log("Transaction payload:", payload);
 
+      // Show loading modal
       openModal("Please confirm this transaction in your wallet...", "info", "Transaction In Progress", "loading");
       
+      // Submit transaction
       const resp = await signAndSubmitTransaction({ payload });
       console.log("Transaction response:", resp);
 
@@ -116,13 +129,16 @@ const Votedata = () => {
         throw new Error("Transaction failed - no hash returned");
       }
 
+      // Construct transaction URL (note: there's a bug here with Response type)
       const txUrl = `https://explorer.movementlabs.xyz/?network=bardock+testnet${(Response as unknown as { hash: string }).hash}`;
       console.log("Transaction URL:", txUrl);
       
+      // Success message based on action type
       const successMessage = action === "stake" 
         ? `${amount} MOVE tokens successfully staked as collateral`
         : `${amount} MOVE tokens successfully unstaked`;
       
+      // Show success modal
       openModal(
         successMessage,
         "success",
@@ -131,9 +147,11 @@ const Votedata = () => {
         txUrl
       );
 
+      // Reset input and pending action
       setInputValue("");
       setPendingAction(null);
 
+      // Refetch stake data after delay
       setTimeout(() => {
         refetchStake();
       }, 5000);
@@ -141,6 +159,7 @@ const Votedata = () => {
     } catch (error: any) {
       console.error(`${pendingAction.type} error:`, error);
       
+      // Handle different error cases
       let errorMessage = `${pendingAction.type} failed: ${error.message || "Unknown error"}`;
       let errorType: "error" = "error";
       
@@ -158,19 +177,23 @@ const Votedata = () => {
         errorMessage = "Invalid amount format. Please enter a valid number";
       }
 
+      // Show error modal
       openModal(errorMessage, errorType, "Transaction Failed", "details");
       setPendingAction(null);
     }
   };
 
+  // Initiates a transaction (stake or unstake) after validation
   const initiateTransaction = (action: "stake" | "unstake") => {
     const amount = parseFloat(inputValue);
     
+    // Validate amount
     if (isNaN(amount) || amount <= 0) {
       openModal("Please enter a valid amount greater than 0", "error", "Invalid Amount", "details");
       return;
     }
 
+    // Additional validation for unstaking
     if (action === "unstake") {
       const currentStake = typeof stake === 'number' ? stake : 0;
       if (amount > currentStake) {
@@ -179,6 +202,7 @@ const Votedata = () => {
       }
     }
 
+    // Set pending action and show confirmation modal
     setPendingAction({ type: action, amount });
     
     const confirmationMessage = action === "stake" 
@@ -193,6 +217,7 @@ const Votedata = () => {
     );
   };
 
+  // Wrapper functions for specific actions
   async function stakeMove() {
     initiateTransaction("stake");
   }
@@ -201,9 +226,11 @@ const Votedata = () => {
     initiateTransaction("unstake");
   }
 
+  // Render component
   return (
     <>
       <div className="vdata-container">
+        {/* Show connect wallet prompt if not connected */}
         {!account?.address ? (
           <div className="vdata-info">
             <h3 className="connect-wallet-text">
@@ -228,10 +255,12 @@ const Votedata = () => {
           </div>
         ) : (
           <>
+            {/* Show staking interface when wallet is connected */}
             <div className="vdata-info-one">
               <div className="vote-power">
                 <span className="staked-label">Staked:</span>
                 <span className="staked-value">
+                  {/* Display animated stake value */}
                   {animatedStake.toLocaleString(undefined, {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0
@@ -254,6 +283,7 @@ const Votedata = () => {
                 </div>
               </div>
               
+              {/* Movement branding */}
               <div className="movement-branding">
                 <div className="movement-logo">
                   <img src={movementtoken} alt="Movement" className="movement-logo-img" />
@@ -261,6 +291,7 @@ const Votedata = () => {
                 <span className="movement-text">Movement</span>
               </div>
               
+              {/* Amount input field */}
               <div className="input-container">
                 <input 
                   className="inputfield" 
@@ -275,6 +306,7 @@ const Votedata = () => {
                 />
               </div>
               
+              {/* Action buttons */}
               <div className="action-buttons-container">
                 <button
                   type="button"
@@ -283,6 +315,7 @@ const Votedata = () => {
                 >
                   Stake
                 </button>
+                {/* Dropdown for additional actions */}
                 <div className="dropdown-container">
                   <button 
                     type="button" 
@@ -312,6 +345,7 @@ const Votedata = () => {
         )}
       </div>
 
+      {/* Transaction modal */}
       <Modal 
         isOpen={isModalOpen} 
         onClose={closeModal} 

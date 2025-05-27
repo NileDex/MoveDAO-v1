@@ -54,15 +54,18 @@ const Header = () => {
       </div>
 
       <nav className={`nav-items ${isNavOpen ? "show" : ""}`}>
-        <Link
-          to="/"
-          className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
-          onClick={() => setIsNavOpen(false)}
-        >
-          MoveDAO
-        </Link>
-        
-      
+        {/* Wrap Link in a div to avoid possible nesting issues */}
+        <div className="nav-link-wrapper">
+          <Link
+            to="/"
+            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+            onClick={() => setIsNavOpen(false)}
+          >
+            MoveDAO
+          </Link>
+        </div>
+
+       
         <div className="nav-button-container">
           <AptosConnectButton className="whit" />
         </div>
