@@ -1,12 +1,12 @@
 .footer {
-    background-color: #2a27206f;
+    
     color: white;
     margin-top: 2rem; /* Added margin-top for spacing */
     padding: 2rem 0; /* Adjusted padding for better spacing */
 }
 
 .footer-container {
-    max-width: 1200px;
+   
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -14,7 +14,7 @@
 .footer-bottom {
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 1px solid #3c3c3c;
+
     text-align: center;
 }
 

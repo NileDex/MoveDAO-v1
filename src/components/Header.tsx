@@ -59,35 +59,10 @@ const Header = () => {
           className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
           onClick={() => setIsNavOpen(false)}
         >
-          Home
+          MoveDAO
         </Link>
-        <Link
-          to="/profile"
-          className={`nav-link ${
-            location.pathname === "/profile" ? "active" : ""
-          }`}
-          onClick={() => setIsNavOpen(false)}
-        >
-          Profile
-        </Link>
-        <Link
-          to="/analytics"
-          className={`nav-link ${
-            location.pathname === "/analytics" ? "active" : ""
-          }`}
-          onClick={() => setIsNavOpen(false)}
-        >
-          Analytics
-        </Link>
-        <Link
-          to="/CommunityGovernance"
-          className={`nav-link ${
-            location.pathname === "/CommunityGovernance" ? "active" : ""
-          }`}
-          onClick={() => setIsNavOpen(false)}
-        >
-          Community
-        </Link>
+        
+      
         <div className="nav-button-container">
           <AptosConnectButton className="whit" />
         </div>

@@ -8,6 +8,8 @@ interface ModalProps {
   title?: string;
   showActionButtons?: boolean;
   onViewTransaction?: () => void;
+  onConfirm?: () => void;
+  confirmText?: string;
   step?: "details" | "confirm" | "loading";
 }
 
@@ -132,6 +134,17 @@ const modalStyles = {
     cursor: 'pointer',
     transition: 'background-color 0.2s',
   },
+  btnConfirm: {
+    background: 'linear-gradient(45deg, #ffc30d, #b80af7)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '12px 20px',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'opacity 0.2s',
+  },
   loader: {
     width: '16px',
     height: '16px',
@@ -164,9 +177,13 @@ const Modal: React.FC<ModalProps> = ({
   title = "Transaction Submitted",
   showActionButtons = true,
   onViewTransaction,
+  onConfirm,
+  confirmText = "Confirm",
   step = "confirm"
 }) => {
   if (!isOpen) return null;
+
+  const isConfirmationStep = onConfirm && step === "details" && type === "info";
 
   return (
     <div style={modalStyles.modalOverlay}>
@@ -196,11 +213,22 @@ const Modal: React.FC<ModalProps> = ({
             </div>
           )}
           
-          {type === "info" && (
+          {type === "info" && !isConfirmationStep && (
             <div style={modalStyles.modalIcon}>
               <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="32" cy="32" r="26.6667" stroke="#2196F3" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 6"/>
                 <path d="M32 21.3333V32L38.6667 38.6667" stroke="#2196F3" strokeWidth="4" strokeLinecap="round"/>
+              </svg>
+            </div>
+          )}
+
+          {/* Question mark icon for confirmation step */}
+          {isConfirmationStep && (
+            <div style={modalStyles.modalIcon}>
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="26.6667" stroke="#FFA726" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 6"/>
+                <path d="M24 24C24 20.6863 26.6863 18 30 18H34C37.3137 18 40 20.6863 40 24C40 27.3137 37.3137 30 34 30H32V34" stroke="#FFA726" strokeWidth="3" strokeLinecap="round"/>
+                <circle cx="32" cy="42" r="2" fill="#FFA726"/>
               </svg>
             </div>
           )}
@@ -210,50 +238,66 @@ const Modal: React.FC<ModalProps> = ({
           
           {showActionButtons && (
             <div style={modalStyles.modalFooter}>
-              <div style={modalStyles.modalSteps}>
-                <div style={{
-                  ...modalStyles.step
-                }}>
+              {/* Only show steps for non-confirmation modals */}
+              {!isConfirmationStep && (
+                <div style={modalStyles.modalSteps}>
                   <div style={{
-                    ...modalStyles.stepNumber,
-                    ...(step === "loading" || step === "confirm" ? modalStyles.stepNumberActive : {})
+                    ...modalStyles.step
                   }}>
-                    {step === "loading" ? (
-                      <div style={modalStyles.loader}></div>
-                    ) : (
-                      "1"
-                    )}
+                    <div style={{
+                      ...modalStyles.stepNumber,
+                      ...(step === "loading" || step === "confirm" ? modalStyles.stepNumberActive : {})
+                    }}>
+                      {step === "loading" ? (
+                        <div style={modalStyles.loader}></div>
+                      ) : (
+                        "1"
+                      )}
+                    </div>
+                    <div style={{
+                      ...modalStyles.stepLabel,
+                      ...(step === "loading" || step === "confirm" ? modalStyles.stepLabelActive : {})
+                    }}>Details</div>
                   </div>
                   <div style={{
-                    ...modalStyles.stepLabel,
-                    ...(step === "loading" || step === "confirm" ? modalStyles.stepLabelActive : {})
-                  }}>Details</div>
-                </div>
-                <div style={{
-                  ...modalStyles.stepLine,
-                  ...(step === "confirm" ? modalStyles.stepLineActive : {})
-                }}></div>
-                <div style={{
-                  ...modalStyles.step
-                }}>
+                    ...modalStyles.stepLine,
+                    ...(step === "confirm" ? modalStyles.stepLineActive : {})
+                  }}></div>
                   <div style={{
-                    ...modalStyles.stepNumber,
-                    ...(step === "confirm" ? modalStyles.stepNumberActive : {})
-                  }}>2</div>
-                  <div style={{
-                    ...modalStyles.stepLabel,
-                    ...(step === "confirm" ? modalStyles.stepLabelActive : {})
-                  }}>Confirm</div>
+                    ...modalStyles.step
+                  }}>
+                    <div style={{
+                      ...modalStyles.stepNumber,
+                      ...(step === "confirm" ? modalStyles.stepNumberActive : {})
+                    }}>2</div>
+                    <div style={{
+                      ...modalStyles.stepLabel,
+                      ...(step === "confirm" ? modalStyles.stepLabelActive : {})
+                    }}>Confirm</div>
+                  </div>
                 </div>
-              </div>
+              )}
+              
               <div style={modalStyles.modalActions}>
                 <button 
                   style={modalStyles.btnClose} 
                   onClick={onClose}
                 >
-                  Close
+                  {isConfirmationStep ? "No, Cancel" : "Close"}
                 </button>
-                {onViewTransaction && step === "confirm" && (
+                
+                {/* Show confirm button for confirmation step */}
+                {isConfirmationStep && (
+                  <button 
+                    style={modalStyles.btnConfirm} 
+                    onClick={onConfirm}
+                  >
+                    {confirmText}
+                  </button>
+                )}
+                
+                {/* Show view transaction button for successful transactions */}
+                {onViewTransaction && step === "confirm" && !isConfirmationStep && (
                   <button 
                     style={modalStyles.btnView} 
                     onClick={onViewTransaction}

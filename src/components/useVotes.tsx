@@ -1,4 +1,4 @@
-import { useAptosWallet } from "@razorlabs/wallet-kit";
+import { useAptosWallet } from  "@razorlabs/wallet-kit";
 import { useQuery } from "@tanstack/react-query";
 import { aptosClient } from "../services/movement-client";
 import { MODULE_ADDRESS } from "../constants";
@@ -13,6 +13,7 @@ interface Vote {
   total_yes_votes: string;
   total_no_votes: string;
   completed: boolean;
+  voters: string[]; // Add this field to track who has voted
 }
 
 export function useVotes() {

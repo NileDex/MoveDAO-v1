@@ -7,11 +7,9 @@
     position: sticky;
     top: 0;
     border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0 0 15px 15px;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     z-index: 1000;
-   
     opacity: 1;
 }
 
@@ -90,23 +88,7 @@
     color: #ffc30d;
 }
 
-.nav-link.active {
-    color: #ffc30d;
-    position: relative;
-    background: #ffc30d22;
-    padding: 25px;
-}
 
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #ffc30d;
-    border-radius: 2px;
-}
 
 /* Connect Button Container */
 .nav-button-container {
@@ -156,9 +138,13 @@
 
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
-    .header{
+    .header {
         width: 100%;
-        padding: 18px 0;
+        padding: 10px 0;
+    }
+
+    .logo-section {
+        gap: 10px;
     }
 
     .logo img {
@@ -168,25 +154,41 @@
     .logo .mobile-logo {
         display: flex;
         width: 40px;
-        margin: 0 5px;
+        margin: 0 10px;
         padding: 0;
     }
 
+    .logo-info {
+        gap: 3px;
+    }
+
+    .governance-text {
+        font-size: 0.8rem;
+    }
+
+    .testnet-block {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+
+    /* Navigation Items - Updated to match desktop style */
     .nav-items {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
         position: fixed;
-        top: 0;
+        top: 60px; /* Position below header */
         left: 0;
         width: 100%;
-        height: 100vh;
-        background-color: rgba(15, 15, 20, 0.95);
-        padding: 80px 0 30px;
+        height: calc(100vh - 70px);
+        background-color: #121212;
+       
+        padding: 20px 0;
         display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px;
         z-index: 999;
         overflow-y: auto;
-        transition: all 0.3s ease-in-out;
+        border-top: 1.5px solid rgba(255, 255, 255, 0.2);
     }
 
     .nav-items.show {
@@ -194,69 +196,68 @@
     }
 
     .nav-link {
-        font-size: 1.1rem;
-        width: 80%;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 15px 25px;
+        width: auto;
         text-align: center;
-        margin: 8px 0;
-        padding: 16px;
-        border-radius: 12px;
-        border-left: 3px solid transparent;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .nav-link::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 2px;
-        width: 0;
-        background-color: #ffc30d;
-        transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::before {
-        width: 100%;
+        transition: color 0.3s ease;
+        border-radius: 0;
+        margin: 0;
+        background: transparent;
+        border: none;
     }
 
     .nav-link:hover {
-        background-color: rgba(255, 195, 13, 0.1);
-        border-left: 3px solid #ffc30d;
-        transform: translateX(5px);
+        color: #ffc30d;
+        background: transparent;
+        transform: none;
+        border-left: none;
+    }
+
+    .nav-link::before {
+        display: none;
     }
 
     .nav-link.active {
-        background: rgba(255, 195, 13, 0.15);
-        border-radius: 12px;
-        padding: 16px;
-        border-left: 3px solid #ffc30d;
-        box-shadow: 0 4px 12px rgba(255, 195, 13, 0.1);
+        color: #ffc30d;
+        background: transparent;
+        box-shadow: none;
+        border-left: none;
+        position: relative;
     }
 
     .nav-link.active::after {
-        display: none;
+        content: '';
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background-color: #ffc30d;
+    }
+
+    /* Connect Button - Match desktop style */
+    .nav-button-container {
+        padding: 0;
+        margin: 20px 0 0;
+        width: auto;
+    }
+
+    .nav-button-container .whit {
+        width: auto;
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: none;
+        font-weight: 600;
+        margin: 0;
     }
 
     .hamburger {
         display: flex;
         margin-right: 15px;
-    }
-    
-    /* Adjust connect button container for mobile */
-    .nav-button-container {
-        padding: 20px 0;
-        margin-top: 20px;
-        width: 80%;
-    }
-    
-    .nav-button-container .whit {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        border-radius: 12px;
-        font-weight: 600;
-        box-shadow: 0 4px 12px rgba(255, 195, 13, 0.2);
     }
 }

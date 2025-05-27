@@ -22,3 +22,51 @@
     gap: 10px;
     margin-top: 20px;
   }
+
+  /* Custom Alert */
+  .custom-alert {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    min-width: 250px;
+    text-align: center;
+  }
+
+  .custom-alert-info {
+    background-color: #2196F3;
+    color: white;
+  }
+
+  .custom-alert-success {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .custom-alert-error {
+    background-color: #ffcccc;
+    color: #333;
+    
+  }
+
+  .custom-alert-warning {
+    background-color: #ff9800;
+    color: white;
+  }
+
+  .eligibility-button:hover {
+    opacity: 1; /* Prevent opacity changes on hover */
+    transform: scale(1); /* Reset scaling on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reset box-shadow to match non-hover state */
+  }
+
+  /* Add :active styles if you want to keep the press effect */
+  .eligibility-button:active {
+      transform: scale(0.98); /* Keep press effect */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Keep press effect shadow */
+  }

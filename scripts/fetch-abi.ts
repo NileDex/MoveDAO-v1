@@ -7,7 +7,7 @@ import { MODULE_ADDRESS } from "../src/constants.ts";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = "https://aptos.testnet.suzuka.movementlabs.xyz/v1";
+const BASE_URL = "https://testnet.bardock.movementnetwork.xyz/v1";
 
 async function getABI(moduleName: string): Promise<void> {
   try {

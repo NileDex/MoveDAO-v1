@@ -1,4 +1,4 @@
-import { useAptosWallet } from "@razorlabs/wallet-kit";
+import { useAptosWallet } from  "@razorlabs/wallet-kit";
 import { useQuery } from "@tanstack/react-query";
 import { stakingClient } from "../services/movement-client";
 

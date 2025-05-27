@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Footer Bottom */}
           <div className="footer-bottom">
             <div className="footer-socials">
-              {['Facebook', 'Twitter', 'LinkedIn', 'Instagram'].map((social) => (
+              {['Github', 'Twitter',].map((social) => (
                 <a key={social} href="#" className="footer-social-link">
                   {social}
                 </a>
