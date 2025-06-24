@@ -5,7 +5,7 @@ import { ABI as VotingABI } from "./Voting.ts";
 
 const aptosConfig = new AptosConfig({
   network: Network.CUSTOM,
-  fullnode: "https://testnet.bardock.movementnetwork.xyz/v1",
+  fullnode: "https://full.testnet.movementinfra.xyz/v1",
   indexer: "",
 });
 const aptosClient = new Aptos(aptosConfig);
